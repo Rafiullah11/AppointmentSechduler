@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor 
+
+<div class="row">
+    @if (TempData.ContainsKey("newAdminSignUp"))
+    {
+        <div class="container">
+            <div class="alert alert-success alert-dismissable">
+                <a href="" class="close" data-dismiss="alert" aria-label="close">*</a>
+                <strong>Account created for @TempData["newAdminSignUp"].ToString();</strong>
+            </div>
+        </div>
+
+    }
+    <div class="container">
+        @if (User.IsInRole(AppointmentSechduler.Utlities.Helper.Admin))
+        {
+            <div class="row">
+            <div class="form-group  col-4" id="divDoctorList">
+                @Html.DropDownList("doctorId",new SelectList(ViewBag.Doctorlist,"Id","Name"),new{@class="form-control select2",
+                @onChange="onDoctorChange();"})
+            </div>
+            <div class="col-2  offset-6">
+                <a asp-action="Register" asp-controller="Account" class="btn btn-outline-primary">Register an admin</a>
+            </div>
+            </div>
+        }
+        <div id="calendar"></div>
+    </div>
+</div>
+<partial name="_AddEditAppointment" />
+<div class="text-right pt-2">
+    <p>@HttpContextAccessor.HttpContext.Session.GetString("ssuserName")'s account is logged in</p>
+</div>
+

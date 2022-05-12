@@ -1,0 +1,68 @@
+﻿@model AppointmentSechduler.Models.ViewModels.RegisterVM
+
+<div class ="container pt-3">
+    <div class="row offset-2">
+    <div class="col-md-8 border pb-2 offset-md-1">
+            <form method="post" class="offset-2" asp-action="Register" asp-controller="Account">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                @if (User.IsInRole(AppointmentSechduler.Utlities.Helper.Admin))
+                {
+                 <h4 class="text-center pt-1"> Register is an Admin account</h4>
+                }
+                else{
+                <h4 class="text-center pt-1"> Create Account</h4>
+                }
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group ">
+                    <label asp-for="Name" class="col-md-2"></label>
+                    <div class="col-md-10">
+                        <input type="text" asp-for="Name" class="form-control"  />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label asp-for="Email" class="col-md-2"></label>
+                    <div class="col-md-10">
+                        <input type="text" asp-for="Email" class="form-control"  />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label asp-for="Password" class="col-md-2"></label>
+                    <div class="col-md-10">
+                        <input type="password" asp-for="Password" class="form-control"  />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div> 
+                <div class="form-group ">
+                    <label asp-for="ConfirmPassword" class="col-md-6"></label>
+                    <div class="col-md-10">
+                        <input type="password" asp-for="ConfirmPassword" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <div class="col-md-10">
+                        <label asp-for="RoleName"></label>
+                    <select asp-for="RoleName" class="form-control" 
+                    asp-items=@AppointmentSechduler.Utlities.Helper.GetListDD(User.IsInRole(AppointmentSechduler.Utlities.Helper.Admin))>
+                        <option selected>--Select Role--</option>
+                    </select>
+                 </div>
+                 </div>
+                 <div class="form-group ">
+                    <div class="col-md-10 pb-2">
+                        <input type="submit" class=" btn btn-primary btn-block " value="Sign Up" />
+                     </div>
+                     <div class="col-md-10">
+
+                        <a asp-action="Login" asp-controller="Account" class="text-primary "> already have an account Login</a>
+                    </div>
+                </div>
+                
+          </form>
+      </div>
+    </div>
+</div>
+
